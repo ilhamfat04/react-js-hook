@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 
 export default class GuestGreeting extends Component {
 
+    componentDidMount() {
+        console.log("Guest Greeting did mount")
+    }
+
     //Create method WillUnmount inside it can print "GuestG reeting Component Will Unmount" here...
+    componentWillUnmount() {
+        console.log("Guest Greeting Component Will Unmount")
+    }
 
     render() {
         return (
