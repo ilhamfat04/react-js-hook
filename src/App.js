@@ -1,5 +1,5 @@
 //import useState & useEffect here
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 
 import {
     Container,
@@ -9,18 +9,22 @@ import {
 
 import Welcome from './Welcome'
 import GuestGreeting from './GuestGreeting'
+import { UserContext } from './context/UserContext'
 
 import ExampleComp from './ExampleComp'
 
 function App() {
 
-    const [state, setState] = useState({
-        isLogin: false,
-        user: {
-            email: '',
-            password: ''
-        }
-    })
+    const [state, dispatch] = useContext(UserContext)
+    console.log(state)
+
+    // const [state, setState] = useState({
+    //     isLogin: false,
+    //     user: {
+    //         email: '',
+    //         password: ''
+    //     }
+    // })
 
     // Create DidMount with useEffect inside it can print "App Component Did Mount" & state value here
     useEffect(() => {
@@ -29,29 +33,39 @@ function App() {
     })
 
     // Create DidUpdate with useEffect inside it can print "App Component Did Update" & state value here
-    useEffect(() => {
-        if (state.user.email) {
-            // console.log("App Component Did Update")
-            // console.log(state);
-        }
-    })
+    // useEffect(() => {
+    //     if (state.user.email) {
+    //         console.log("App Component Did Update")
+    //         console.log(state);
+    //     }
+    // })
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
         const email = document.getElementById('email').value
         const password = document.getElementById('password').value
-        setState({
-            isLogin: true,
-            user: {
-                email,
-                password
-            }
+        // setState({
+        //     isLogin: true,
+        //     user: {
+        //         email,
+        //         password
+        //     }
+        // })
+
+        const data = {
+            email,
+            password
+        }
+
+        dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: data
         })
     }
 
     return (
         <>
-            <ExampleComp user={state.user} />
+            <ExampleComp />
             {state.isLogin ? <Welcome /> :
                 (<>
                     <GuestGreeting />
